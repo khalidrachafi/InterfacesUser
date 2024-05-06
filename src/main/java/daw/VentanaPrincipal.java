@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import daw.Users;
+import java.util.Map;
 
 /**
  *
@@ -28,25 +30,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
         this.setTitle("User Login");
-
-    }
-
-    public void leerUsers() throws IOException {
-
-        List<Users> usuarios = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("usuarios.csv"))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split(",");
-                if (partes.length == 2) {
-                    String username = partes[0];
-                    String password = partes[1];
-                    usuarios.add(new Users(username, password));
-                } else {
-                    System.out.println("Linea inválida: " + linea);
-                }
-            }
-        }
 
     }
 
@@ -151,29 +134,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        // TODO add your handling code here:
-        boolean correcto = true;
-
-        // if (correcto) {
-        //     JOptionPane.showMessageDialog(null, 
-        /// }else{
-        //  JOptionPane.showMessageDialog(null, 
-        //        "Login erroneo, no existes en la base de datos",
-        //        "Error",JOptionPane.ERROR_MESSAGE); 
-        // }
-        try {
-            leerUsers();
+        // TODO add your handling code here:     
+        
+        Map <String,String> mapeado = Users.leerUsuariosDesdeCSV();
+        if (mapeado.containsKey(UsuarioTexto.getText()) && mapeado.containsValue(ContraseñaTexto.getText())) {
+                          Users.leerUsuariosDesdeCSV();
             JOptionPane.showMessageDialog(null,
-                    "Login completado, has entrado con exito");
-        } catch (IOException ex) {
-            correcto = false;
-            JOptionPane.showMessageDialog(null,
+                    "Login completado, has entrado con exito");     
+        }else{
+               JOptionPane.showMessageDialog(null,
                     "Login erroneo, no existes en la base de datos",
                     "Error", JOptionPane.ERROR_MESSAGE);
-
         }
-        
-        
+
 
 
     }//GEN-LAST:event_LoginActionPerformed

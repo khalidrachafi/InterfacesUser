@@ -6,22 +6,55 @@ package daw;
 
 import java.util.Random;
 import javax.swing.JOptionPane;
+import daw.Users;
+import java.util.Map;
 
 /**
  *
  * @author khalid
  */
 public class RegistroDialogo extends javax.swing.JDialog {
-
+    
+    
+    private VentanaPrincipal padre;
+    
+    
     /**
      * Creates new form RegistroDialogo
      */
-    public RegistroDialogo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public RegistroDialogo(VentanaPrincipal ventana, boolean modal) {
+        super(ventana, modal);
+        padre = ventana;
         initComponents();
         this.setTitle("Registro");
+        
     }
-
+    
+    
+    
+    
+    //por defecto le pondremos 8 caracteres
+//    private static String reemplazarContra(int length) {
+//        String characters = "abcdefghijklmnopqrstuvwxyz";
+//        Random random = new Random();
+//        String aleatorio = "";
+//        for (int i = 0; i < length; i++) {
+//            char randomChar = characters.charAt(random.nextInt(characters.length()));
+//            aleatorio += randomChar;
+//        }
+//        return aleatorio;
+//        
+//    }
+//    
+//    
+//    
+//    private void cambiarContra(){
+//        String aux=reemplazarContra(8);
+//        ContraseñaRegistroTexto.setText(aux);
+//        ContraseñaConfirmRegistroTexto.setText(aux);
+//        }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,67 +191,72 @@ public class RegistroDialogo extends javax.swing.JDialog {
 
         }
 
+//        if (ContraseñaConfirmRegistroTexto.getText()
+//                .equals(ContraseñaRegistroTexto
+//                        .getText()) && 
+//                (!(Users.leerUsuariosDesdeCSV().containsKey
+//        (UsuarioRegistroTexto)))
+//                && (!(Users.leerUsuariosDesdeCSV()
+//                .containsValue(ContraseñaRegistroTexto)))) 
+//        {
+//            Users.escribirNuevoUser(UsuarioRegistroTexto.getText(),
+//                    ContraseñaRegistroTexto.getText());
+//        }
+        
         if (ContraseñaConfirmRegistroTexto.getText()
-                .equalsIgnoreCase(ContraseñaRegistroTexto
+                .equals(ContraseñaRegistroTexto
                         .getText())) {
-
+            
+            Map <String,String> mapeado = Users.leerUsuariosDesdeCSV();
+                    mapeado.put(UsuarioRegistroTexto.getText(), ContraseñaRegistroTexto.getText());
+            Users.escribirNuevoUser(mapeado);
         }
         
         
-        Random r = new Random();
         
-        String characters = "abcdefghijklmnopqrstuvwxyz";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            char randomChar = characters.charAt(r.nextInt(characters.length()));
-            sb.append(randomChar);
-        }
-        StringBuilder aleatorio = sb;
-
-
     }//GEN-LAST:event_RegistrarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                RegistroDialogo dialog = new RegistroDialogo(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(RegistroDialogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                RegistroDialogo dialog = new RegistroDialogo(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
